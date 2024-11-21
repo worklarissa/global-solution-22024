@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "486541567090",
+    "project_id": "gs-22024",
+    "storage_bucket": "gs-22024.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:486541567090:android:6e434d77abb6e42b168eeb",
+        "android_client_info": {
+          "package_name": "com.larissa.ecoenergy"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBvew-r8KknbgpwlrtwiVo2ktV2xCo-mcs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
