@@ -5,4 +5,15 @@
     <string name="input_email">E-mail</string>
     <string name="input_senha">Senha</string>
     <string name="btn_logar">ENTRAR</string>
+    <string name="btn_calculadora">Calculadora de consumo diário por equipamento</string>
+    <string name="btn_ideias">Minhas ideias sobre consumo de energia sustentável</string>
+    <string name="title_calculadora_consumo">Calculadora de consumo diário por equipamento</string>
+    <string name="txt_calculadora_consumo">Calcule aqui qual tem sido o consumo diário de energia de algum aparelho em sua casa.</string>
+    <string name="input_watts">Qual é a potência do seu aparelho em watts(W)?</string>
+    <string name="input_horas">Qual é o tempo médio de uso do seu aparelho, em horas (h)?</string>
+    <string name="btn_calcular">CALCULAR</string>
+    <string name="txt_resultado">Resultado:</string>
+    <string name="btn_criar_ideia">CRIAR</string>
+    <string name="btn_editar_ideia">EDITAR</string>
+    <string name="btn_deletar_ideia">DELETAR</string>
 </resources>
