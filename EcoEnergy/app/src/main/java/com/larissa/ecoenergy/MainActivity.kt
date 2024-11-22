@@ -3,12 +3,8 @@ package com.larissa.ecoenergy
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
-import android.widget.ImageView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import java.util.logging.Handler
 
 class MainActivity : AppCompatActivity() {
 
@@ -17,7 +13,7 @@ class MainActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
 
-        var btnComecar: Button = findViewById(R.id.button)
+        var btnComecar: Button = findViewById(R.id.btnComecar)
 
         btnComecar.setOnClickListener {
             val navergarMain = Intent(this, TelaLogin::class.java)
@@ -26,12 +22,5 @@ class MainActivity : AppCompatActivity() {
 
 
     }
-
-
-
-
-
-
-
 
 }

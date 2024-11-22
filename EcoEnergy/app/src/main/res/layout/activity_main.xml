@@ -19,7 +19,7 @@
         app:srcCompat="@drawable/logo_ecoenergy_removebg_preview" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btnComecar"
         android:layout_width="162dp"
         android:layout_height="49dp"
         android:layout_marginTop="40dp"

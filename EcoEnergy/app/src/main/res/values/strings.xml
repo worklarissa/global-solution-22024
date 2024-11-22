@@ -2,4 +2,7 @@
     <string name="app_name">EcoEnergy</string>
     <string name="btn_comecar">COMEÇAR</string>
     <string name="txt_login">Entre novamente para acessar o aplicativo</string>
+    <string name="input_email">E-mail</string>
+    <string name="input_senha">Senha</string>
+    <string name="btn_logar">ENTRAR</string>
 </resources>
