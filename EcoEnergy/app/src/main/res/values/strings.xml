@@ -16,4 +16,6 @@
     <string name="btn_criar_ideia">CRIAR</string>
     <string name="btn_editar_ideia">EDITAR</string>
     <string name="btn_deletar_ideia">DELETAR</string>
+    <string name="btn_logout">DESCONECTAR</string>
+    <string name="txt_editar_ideia">Crie, atualize ou delete uma ideia</string>
 </resources>

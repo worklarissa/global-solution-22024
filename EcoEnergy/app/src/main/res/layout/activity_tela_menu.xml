@@ -19,7 +19,7 @@
         app:srcCompat="@drawable/logo_ecoenergy_removebg_preview_copia" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/btnCalculadoraConsumo"
         android:layout_width="362dp"
         android:layout_height="71dp"
         android:layout_marginTop="44dp"
@@ -35,7 +35,7 @@
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/btnIdeias"
         android:layout_width="360dp"
         android:layout_height="0dp"
         android:layout_marginTop="40dp"
@@ -48,6 +48,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.49"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button2" />
+        app:layout_constraintTop_toBottomOf="@+id/btnCalculadoraConsumo" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
