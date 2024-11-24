@@ -38,12 +38,12 @@ class TelaCalculadoraConsumo : AppCompatActivity() {
     }
 
     fun calcularConsumoDiario( ){
-       val numWatts = valorWatts.text.toString().toIntOrNull();
-        val numHoras = valorHoras.text.toString().toIntOrNull();
+       val numWatts = valorWatts.text.toString().toFloatOrNull();
+        val numHoras = valorHoras.text.toString().toFloatOrNull();
 
         if (numWatts != null && numHoras != null) {
-            val conta = (numWatts * numHoras) / 1000
-            resultado.text = "O valor do consumo diário do seu equipamento é: ${conta} kWh"
+            val conta = (numWatts * numHoras) / 1000f
+            resultado.text = "O valor do consumo diário do seu equipamento é: ${conta} kWh".format(conta)
         } else {
             resultado.text = "Por favor, insira ambos os números";
         }
