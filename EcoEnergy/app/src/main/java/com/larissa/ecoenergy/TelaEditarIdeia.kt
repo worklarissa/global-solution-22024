@@ -19,7 +19,7 @@ class TelaEditarIdeia : AppCompatActivity() {
 
     private lateinit var binding: ActivityTelaEditarIdeiaBinding
     private val retrofitService by lazy { RetrofitHelper.retrofit.create(PensamentoApi::class.java) }
-    private var posicaoIdeia: Int = -1
+    private var idIdeia: Int = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,7 +27,8 @@ class TelaEditarIdeia : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(binding.root)
 
-        posicaoIdeia = intent.getIntExtra("POSICAO_IDEIA", -1)
+        idIdeia = intent.getIntExtra("ID_IDEIA", -1)
+
         val textoOriginal = intent.getStringExtra("TEXTO_IDEIA") ?: ""
         binding.editTextIdeia.setText(textoOriginal)
 
@@ -35,11 +36,14 @@ class TelaEditarIdeia : AppCompatActivity() {
         binding.btnEditar.setOnClickListener { editarIdeia() }
         binding.btnDeletar.setOnClickListener { deletarIdeia() }
 
-        if (posicaoIdeia == -1) {
+        if (idIdeia == -1) {
+            binding.btnCriar.visibility = View.VISIBLE
             binding.btnEditar.visibility = View.GONE
             binding.btnDeletar.visibility = View.GONE
         } else {
             binding.btnCriar.visibility = View.GONE
+            binding.btnEditar.visibility = View.VISIBLE
+            binding.btnDeletar.visibility = View.VISIBLE
         }
 
 
@@ -60,7 +64,7 @@ class TelaEditarIdeia : AppCompatActivity() {
 
         lifecycleScope.launch {
             try {
-                val novaIdeia = Pensamento(opiniao = opiniao)
+                val novaIdeia = mapOf("opiniao" to opiniao)
                 val response = retrofitService.criarPensamento(novaIdeia)
                 if (response.isSuccessful) {
                     Toast.makeText(this@TelaEditarIdeia, "Ideia criada com sucesso", Toast.LENGTH_SHORT).show()
@@ -91,17 +95,16 @@ class TelaEditarIdeia : AppCompatActivity() {
 
         lifecycleScope.launch {
             try {
-                Log.d("TelaEditarIdeia", "ID da ideia recebido: $posicaoIdeia")
-                Log.d("TelaEditarIdeia", "Tentando atualizar ideia na posição: $posicaoIdeia")
+                Log.d("TelaEditarIdeia", "ID da ideia a ser atualizada: ${idIdeia}")
 
-                if (posicaoIdeia == -1) {
+                if (idIdeia == -1) {
                     Log.e("TelaEditarIdeia", "ID da ideia inválido")
                     Toast.makeText(this@TelaEditarIdeia, "Erro: ID da ideia inválido", Toast.LENGTH_SHORT).show()
                     return@launch
                 }
 
-                val ideiaAtualizada = mapOf("pensamento" to opiniao)
-                val response = retrofitService.atualizarPensamento(posicaoIdeia, ideiaAtualizada)
+                val ideiaAtualizada = mapOf("opiniao" to opiniao)
+                val response = retrofitService.atualizarPensamento(idIdeia, ideiaAtualizada)
 
                 if (response.isSuccessful) {
                     Log.d("TelaEditarIdeia", "Ideia atualizada com sucesso")
@@ -128,8 +131,8 @@ class TelaEditarIdeia : AppCompatActivity() {
     private fun deletarIdeia() {
         lifecycleScope.launch {
             try {
-                Log.d("TelaEditarIdeia", "Tentando deletar ideia na posição: $posicaoIdeia")
-                val response = retrofitService.deletarPensamento(posicaoIdeia)
+                Log.d("TelaEditarIdeia", "Tentando deletar ideia com ID: $idIdeia")
+                val response = retrofitService.deletarPensamento(idIdeia)
                 if (response.isSuccessful) {
                     Toast.makeText(this@TelaEditarIdeia, "Ideia excluída com sucesso", Toast.LENGTH_SHORT).show()
                     setResult(RESULT_OK)

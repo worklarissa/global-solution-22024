@@ -7,7 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.larissa.ecoenergy.R
 
-class PensamentoAdapter(private val pensamentos: List<Pensamento>,  private val onItemClick: (Int, String) -> Unit) : RecyclerView.Adapter<PensamentoAdapter.ViewHolder>() {
+class PensamentoAdapter(private val pensamentos: List<Pensamento>,  private val onItemClick: (Pensamento) -> Unit) : RecyclerView.Adapter<PensamentoAdapter.ViewHolder>() {
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val textViewPensamento: TextView = view.findViewById(R.id.textViewPensamento)
@@ -16,7 +16,7 @@ class PensamentoAdapter(private val pensamentos: List<Pensamento>,  private val 
             itemView.setOnClickListener {
                 val position = adapterPosition
                 if (position != RecyclerView.NO_POSITION) {
-                    onItemClick(position, pensamentos[position].opiniao)
+                    onItemClick(pensamentos[position])
                 }
             }
         }
@@ -28,7 +28,8 @@ class PensamentoAdapter(private val pensamentos: List<Pensamento>,  private val 
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.textViewPensamento.text = pensamentos[position].opiniao
+        val pensamento = pensamentos[position]
+        holder.textViewPensamento.text = pensamento.opiniao
     }
 
     override fun getItemCount() = pensamentos.size

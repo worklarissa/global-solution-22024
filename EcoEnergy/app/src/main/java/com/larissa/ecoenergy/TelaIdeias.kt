@@ -21,6 +21,7 @@ import retrofit2.Response
 import androidx.activity.result.contract.ActivityResultContracts
 import android.app.Activity
 
+
 class TelaIdeias : AppCompatActivity() {
 
     companion object {
@@ -32,11 +33,11 @@ class TelaIdeias : AppCompatActivity() {
     private lateinit var listaIdeias: RecyclerView
     private lateinit var adapter: PensamentoAdapter
 
-    private fun onItemClick(position: Int, texto: String) {
+    private fun onItemClick(pensamento: Pensamento) {
         val intent = Intent(this, TelaEditarIdeia::class.java)
-        intent.putExtra("POSICAO_IDEIA", position)
-        intent.putExtra("TEXTO_IDEIA", texto)
-        startActivity(intent)
+        intent.putExtra("ID_IDEIA", pensamento.id)
+        intent.putExtra("TEXTO_IDEIA", pensamento.opiniao)
+        editarIdeiaLauncher.launch(intent)
     }
 
 
@@ -80,6 +81,7 @@ class TelaIdeias : AppCompatActivity() {
         btnCriar= findViewById(R.id.btnCriarIdeia)
         btnCriar.setOnClickListener {
             val navegarEditIdea = Intent(this, TelaEditarIdeia::class.java)
+            intent.putExtra("ID_IDEIA", -1)
             criarIdeiaLauncher.launch(intent)
 
         }
@@ -92,11 +94,8 @@ class TelaIdeias : AppCompatActivity() {
                 if (response.isSuccessful) {
                     val pensamentos = response.body()
                     pensamentos?.let {
-                        adapter = PensamentoAdapter(it) { position, texto ->
-                            val intent = Intent(this@TelaIdeias, TelaEditarIdeia::class.java)
-                            intent.putExtra("POSICAO_IDEIA", position)
-                            intent.putExtra("TEXTO_IDEIA", texto)
-                            editarIdeiaLauncher.launch(intent)
+                        adapter = PensamentoAdapter(it) { pensamento ->
+                            onItemClick(pensamento)
                         }
                         listaIdeias.adapter = adapter
                     }
@@ -112,6 +111,8 @@ class TelaIdeias : AppCompatActivity() {
             }
         })
     }
+
+
 
     fun onActivity(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)

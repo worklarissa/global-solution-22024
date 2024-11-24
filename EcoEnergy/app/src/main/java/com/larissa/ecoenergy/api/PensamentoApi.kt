@@ -14,7 +14,7 @@ interface PensamentoApi {
     fun getPensamentos(): Call<List<Pensamento>>
 
     @POST("pensamentos")
-    suspend fun criarPensamento(@Body pensamento: Pensamento): Response<Pensamento>
+    suspend fun criarPensamento(@Body pensamento: Map<String, String>): Response<Pensamento>
 
     @PUT("pensamentos/{id}")
     suspend fun atualizarPensamento(@Path("id") id: Int, @Body pensamento: Map<String, String>): Response<Any>

@@ -3,6 +3,7 @@ package com.larissa.ecoenergy
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -10,9 +11,10 @@ import androidx.core.view.WindowInsetsCompat
 
 class TelaCalculadoraConsumo : AppCompatActivity() {
 
-    var btnCalculadora: Button = findViewById(R.id.btnCalcular)
+    private lateinit var btnCalculadora: Button
     private lateinit var valorWatts: EditText
     private lateinit var valorHoras: EditText
+    private lateinit var resultado: TextView
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,11 +27,26 @@ class TelaCalculadoraConsumo : AppCompatActivity() {
             insets
         }
 
+        btnCalculadora = findViewById(R.id.btnCalcular)
+        valorWatts = findViewById(R.id.inputWatts)
+        valorHoras = findViewById(R.id.inputHoras)
+        resultado = findViewById(R.id.txtResultado)
+
         btnCalculadora.setOnClickListener {
             calcularConsumoDiario()
         }
     }
 
     fun calcularConsumoDiario( ){
+       val numWatts = valorWatts.text.toString().toIntOrNull();
+        val numHoras = valorHoras.text.toString().toIntOrNull();
+
+        if (numWatts != null && numHoras != null) {
+            val conta = (numWatts * numHoras) / 1000
+            resultado.text = "O valor do consumo diário do seu equipamento é: ${conta} kWh"
+        } else {
+            resultado.text = "Por favor, insira ambos os números";
+        }
     }
 }
+
