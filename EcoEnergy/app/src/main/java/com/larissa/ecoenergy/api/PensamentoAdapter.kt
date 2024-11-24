@@ -7,10 +7,19 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.larissa.ecoenergy.R
 
-class PensamentoAdapter(private val pensamentos: List<Pensamento>) : RecyclerView.Adapter<PensamentoAdapter.ViewHolder>() {
+class PensamentoAdapter(private val pensamentos: List<Pensamento>,  private val onItemClick: (Int, String) -> Unit) : RecyclerView.Adapter<PensamentoAdapter.ViewHolder>() {
 
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val textViewPensamento: TextView = view.findViewById(R.id.textViewPensamento)
+
+        init {
+            itemView.setOnClickListener {
+                val position = adapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    onItemClick(position, pensamentos[position].opiniao)
+                }
+            }
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

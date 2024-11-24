@@ -1,12 +1,20 @@
 package com.larissa.ecoenergy
 
 import android.os.Bundle
+import android.widget.Button
+import android.widget.EditText
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 
 class TelaCalculadoraConsumo : AppCompatActivity() {
+
+    var btnCalculadora: Button = findViewById(R.id.btnCalcular)
+    private lateinit var valorWatts: EditText
+    private lateinit var valorHoras: EditText
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -16,5 +24,12 @@ class TelaCalculadoraConsumo : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
+        btnCalculadora.setOnClickListener {
+            calcularConsumoDiario()
+        }
+    }
+
+    fun calcularConsumoDiario( ){
     }
 }

@@ -1,6 +1,7 @@
 package com.larissa.ecoenergy
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -22,6 +23,7 @@ class TelaEditarIdeia : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding = ActivityTelaEditarIdeiaBinding.inflate(layoutInflater)
         enableEdgeToEdge()
         setContentView(binding.root)
 
@@ -65,10 +67,17 @@ class TelaEditarIdeia : AppCompatActivity() {
                     setResult(RESULT_OK)
                     finish()
                 } else {
-                    Toast.makeText(this@TelaEditarIdeia, "Erro ao criar ideia", Toast.LENGTH_SHORT).show()
+                    runOnUiThread {
+                        Toast.makeText(this@TelaEditarIdeia, "Erro ao criar ideia: ${response.code()}", Toast.LENGTH_SHORT).show()
+                    }
                 }
             } catch (e: Exception) {
-                Toast.makeText(this@TelaEditarIdeia, "Erro de conexão", Toast.LENGTH_SHORT).show()
+                val errorMessage = "Erro de conexão ${e.message}"
+
+                Toast.makeText(this@TelaEditarIdeia, "Erro de conexão: ${e.message}", Toast.LENGTH_SHORT).show()
+
+                Log.e("TelaCriarIdeia", errorMessage)
+
             }
         }
     }
@@ -82,17 +91,36 @@ class TelaEditarIdeia : AppCompatActivity() {
 
         lifecycleScope.launch {
             try {
-                val ideiaAtualizada = Pensamento(opiniao = opiniao)
+                Log.d("TelaEditarIdeia", "ID da ideia recebido: $posicaoIdeia")
+                Log.d("TelaEditarIdeia", "Tentando atualizar ideia na posição: $posicaoIdeia")
+
+                if (posicaoIdeia == -1) {
+                    Log.e("TelaEditarIdeia", "ID da ideia inválido")
+                    Toast.makeText(this@TelaEditarIdeia, "Erro: ID da ideia inválido", Toast.LENGTH_SHORT).show()
+                    return@launch
+                }
+
+                val ideiaAtualizada = mapOf("pensamento" to opiniao)
                 val response = retrofitService.atualizarPensamento(posicaoIdeia, ideiaAtualizada)
+
                 if (response.isSuccessful) {
+                    Log.d("TelaEditarIdeia", "Ideia atualizada com sucesso")
                     Toast.makeText(this@TelaEditarIdeia, "Ideia atualizada com sucesso", Toast.LENGTH_SHORT).show()
                     setResult(RESULT_OK)
                     finish()
                 } else {
+                    val errorBody = response.errorBody()?.string()
+                    val errorCode = response.code()
+                    Log.e("TelaEditarIdeia", "Erro ao atualizar ideia. Código: $errorCode, Erro: $errorBody")
                     Toast.makeText(this@TelaEditarIdeia, "Erro ao atualizar ideia", Toast.LENGTH_SHORT).show()
                 }
             } catch (e: Exception) {
-                Toast.makeText(this@TelaEditarIdeia, "Erro de conexão", Toast.LENGTH_SHORT).show()
+                val errorMessage = "Erro de conexão ${e.message}"
+
+                Toast.makeText(this@TelaEditarIdeia, "Erro de conexão: ${e.message}", Toast.LENGTH_SHORT).show()
+
+                Log.e("TelaEditarIdeia", errorMessage, e)
+
             }
         }
     }
@@ -100,16 +128,25 @@ class TelaEditarIdeia : AppCompatActivity() {
     private fun deletarIdeia() {
         lifecycleScope.launch {
             try {
+                Log.d("TelaEditarIdeia", "Tentando deletar ideia na posição: $posicaoIdeia")
                 val response = retrofitService.deletarPensamento(posicaoIdeia)
                 if (response.isSuccessful) {
                     Toast.makeText(this@TelaEditarIdeia, "Ideia excluída com sucesso", Toast.LENGTH_SHORT).show()
                     setResult(RESULT_OK)
                     finish()
                 } else {
+                    val errorBody = response.errorBody()?.string()
+                    val errorCode = response.code()
+                    Log.e("TelaEditarIdeia", "Erro ao excluir ideia. Código: $errorCode, Erro: $errorBody")
                     Toast.makeText(this@TelaEditarIdeia, "Erro ao excluir ideia", Toast.LENGTH_SHORT).show()
                 }
             } catch (e: Exception) {
-                Toast.makeText(this@TelaEditarIdeia, "Erro de conexão", Toast.LENGTH_SHORT).show()
+                val errorMessage = "Erro de conexão ${e.message}"
+
+                Toast.makeText(this@TelaEditarIdeia, "Erro de conexão: ${e.message}", Toast.LENGTH_SHORT).show()
+
+                Log.e("TelaCriarIdeia", errorMessage, e)
+
             }
         }
     }
