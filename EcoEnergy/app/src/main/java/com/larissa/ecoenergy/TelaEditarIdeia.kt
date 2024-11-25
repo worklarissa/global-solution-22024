@@ -71,16 +71,14 @@ class TelaEditarIdeia : AppCompatActivity() {
                     setResult(RESULT_OK)
                     finish()
                 } else {
-                    runOnUiThread {
-                        Toast.makeText(this@TelaEditarIdeia, "Erro ao criar ideia: ${response.code()}", Toast.LENGTH_SHORT).show()
-                    }
+                    Toast.makeText(this@TelaEditarIdeia, "Erro ao criar ideia: ${response.code()}", Toast.LENGTH_SHORT).show()
                 }
             } catch (e: Exception) {
                 val errorMessage = "Erro de conexão ${e.message}"
 
                 Toast.makeText(this@TelaEditarIdeia, "Erro de conexão: ${e.message}", Toast.LENGTH_SHORT).show()
 
-                Log.e("TelaCriarIdeia", errorMessage)
+                Log.e("TelaCriarIdeia", "Erro de conexão ${e.message}", e)
 
             }
         }

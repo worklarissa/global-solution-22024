@@ -80,7 +80,7 @@ class TelaIdeias : AppCompatActivity() {
 
         btnCriar= findViewById(R.id.btnCriarIdeia)
         btnCriar.setOnClickListener {
-            val navegarEditIdea = Intent(this, TelaEditarIdeia::class.java)
+            val intent = Intent(this, TelaEditarIdeia::class.java)
             intent.putExtra("ID_IDEIA", -1)
             criarIdeiaLauncher.launch(intent)
 
